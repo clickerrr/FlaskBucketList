@@ -2,60 +2,56 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" type= "text/css" href= "{{ url_for('static',filename='login.css') }}">
     <title>Sign In</title>
 </head>
 <body>
 
     <div class="container-signin">
-        <div class="signin">
-            <h1 class="title">BUCKET LIST APP</h1>
-                <form class="form" method="POST">
 
-                    {{ loginForm.csrf_token }}
+        <h1 class="title">BUCKET LIST APP</h1>
+        <form class="form" method="POST">
 
-                    <div class="item">
-                        {{ loginForm.username_or_email.label(class="form-label")}}
-                        {{ loginForm.username_or_email(class="form-input") }}
+            {{ loginForm.csrf_token }}
 
-                        {% for error in loginForm.username_or_email.errors %}
-                            {{ error(class="form-label-error") }}
-                        {% endfor %}
-                    </div>
-                    <div class="item">
-                        {{ loginForm.password.label(class="form-label")}}
-                        {{ loginForm.password(class="form-input") }}
+            <div class="item">
+                {{ loginForm.username_or_email(class="form-input", placeholder="Username/Email") }}
 
-                        {% for error in loginForm.password.errors %}
-                            {{ error(class="form-label-error") }}
-                        {% endfor %}
-                    </div>
+                {% for error in loginForm.username_or_email.errors %}
+                    {{ error(class="form-label-error") }}
+                {% endfor %}
+            </div>
+            <div class="item">
+                {{ loginForm.password(class="form-input", placeholder="Password") }}
 
-                    <div class="item">
-                        {{ loginForm.remember.label(class="form-label") }}
-                        {{ loginForm.remember(class="form-input") }}
-                    </div>
-
-                    <div class="item">
-                    {{ loginForm.submit(class="form-input") }}
-                    </div>
-                </form>
-
-            <div class="signUpLink">
-                <a href="{{ url_for('signUpPage') }}">Don't have an account? Sign Up</a>
+                {% for error in loginForm.password.errors %}
+                    {{ error(class="form-label-error") }}
+                {% endfor %}
             </div>
 
+            <div class="item">
+                {{ loginForm.remember.label(class="form-label") }}
+                {{ loginForm.remember(class="form-input") }}
+            </div>
 
-            {% with messages = get_flashed_messages() %}
-                {% if messages %}
-                    {% for flashed_message in messages %}
-                        <span class="form-label">{{ flashed_message }}</span>
-                    {% endfor %}
-                {% endif %}
-            {% endwith %}
+            <div class="item">
+            {{ loginForm.submit(class="form-input") }}
+            </div>
+        </form>
 
-
+        <div class="signUpLink">
+            <a href="{{ url_for('signUpPage') }}">Don't have an account? Sign Up</a>
         </div>
+
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for flashed_message in messages %}
+                    <span class="form-label">{{ flashed_message }}</span>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
     </div>
 
 

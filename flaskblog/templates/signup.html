@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" type= "text/css" href= "{{ url_for('static',filename='signup.css') }}">
     <title>Sign Up</title>
 </head>
@@ -14,8 +15,7 @@
                 {{ regForm.csrf_token }}
 
                 <div class="item">
-                    {{ regForm.username.label(class="form-label")}}
-                    {{ regForm.username(class="input") }}
+                    {{ regForm.username(class="input", placeholder="Username") }}
                 </div>
 
                 <div class="item">
@@ -25,8 +25,7 @@
                 </div>
 
                 <div class="item">
-                    {{ regForm.email.label(class="form-label")}}
-                    {{ regForm.email(class="input") }}
+                    {{ regForm.email(class="input", placeholder="Email") }}
                 </div>
 
                 <div class="item">
@@ -36,8 +35,7 @@
                 </div>
 
                 <div class="item">
-                    {{ regForm.password.label(class="form-label")}}
-                    {{ regForm.password(class="input") }}
+                    {{ regForm.password(class="input", placeholder="Password") }}
                 </div>
 
                 <div class="item">
@@ -46,8 +44,7 @@
                     {% endfor %}
                 </div>
                 <div class="item">
-                    {{ regForm.repeat_password.label(class="form-label")}}
-                    {{ regForm.repeat_password(class="input") }}
+                    {{ regForm.repeat_password(class="input", placeholder="Confirm Password") }}
                 </div>
 
                 <div class="item">

@@ -77,13 +77,10 @@ textarea {
 }
 
 .create-new-post-button > *{
-    width: 20%;
     height: 100%;
 }
 
 .removeItemButton {
-    width: 10vw;
-    min-width: 50px;
     height: auto;
 }
 
@@ -99,10 +96,6 @@ textarea {
     width: 100%;
     font-size: 20px;
     padding: 5px;
-}
-
-#new-post-submit {
-    
 }
 
 textarea {
