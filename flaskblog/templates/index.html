@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Python Flask Bucket List App</title>
+    <link rel="stylesheet" type= "text/css" href= "{{ url_for('static',filename='index.css') }}">
+</head>
+
+<body>
+
+        <nav class="navigation">
+            <a href="{{ url_for('logout') }}">Logout</a>
+        </nav>
+
+
+        <div class="header">
+            <h1>BUCKET LIST APP</h1>
+            {% if current_user.is_authenticated %}
+                <span> Hello, {{ current_user.username }}!</span>
+            {% endif %}
+        </div>
+
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            <div class="flashes">
+            {% for message in messages %}
+                <span class="flashed_message">{{ message }}</span>
+            {% endfor %}
+            </div>
+          {% endif %}
+        {% endwith %}
+
+        <div class="bucket-list-container">
+
+            {% if posts[0] %}
+                {% for post in posts %}
+                    <div class="list-item" id="item{{ post.id }}">
+                        <button id="{{ post.id }}" class="removeItemButton">Mark As Done</button>
+                        <h4 class="post-title" id="title{{ post.id }}">{{ post.title }}</h4>
+                        <p class="post-content" id="content{{ post.id }}">{{ post.content }}</p>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div class="no-items-yet">
+                    <h4>No Items Yet</h4>
+                </div>
+            {% endif %}
+
+        </div>
+        <div class="create-new-post-button">
+            <button id="newPostAcceptButton">Add To Your Bucket List!</button>
+        </div>
+
+        <!--<form class="new-post" method="POST">-->
+            <div class="new-post" style="display: none">
+                <input id="new-post-title" placeholder="Enter Your Title">
+                <textarea id="new-post-content" placeholder="Enter your content" rows=4 cols=50></textarea>
+                <button id="new-post-submit" type="submit">Create New Post</button>
+                <span id="titleError">A title is required</span>
+            </div>
+            <!--{{ newPostForm.title(placeholder="Enter Your Title") }} -->
+            <!--{{ newPostForm.content(placeholder="Enter Your Content",rows="4",cols="50") }} -->
+            <!--{{ newPostForm.submit }} -->
+
+        <!--</form>-->
+
+
+    <div class="footer">
+        <a class="footerLink">LinkedIn</a>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='createNewPost.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='removePost.js') }}"></script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,119 @@
+/*
+Charcoal: #424B54
+Peulter Blue: #93A8AC
+White: #FFFFFF
+Pink: #E2B4BD
+Copper Rose: #9B6A6C
+*/
+
+
+
+html, body {
+    padding: 0;
+    margin: 0;
+    font-size: 20px;
+    font-family:'Courier New', Courier, monospace;
+}
+
+body {
+    background: linear-gradient(45deg, #FFFFFF, #424B54);
+    height: 100vh;
+    width: 100vw;
+    background-repeat: no-repeat;
+    overflow: hidden;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+
+
+a, a:hover, a:focus, a:active {
+    text-decoration: none;
+    color: inherit;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    height: 70vh;
+    width: 60vw;
+    padding: 10px;
+}
+
+.signUp {
+    width: 50%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    background-color: #1E2D24;
+    padding-bottom: 20px;
+    border-radius: 15px;
+}
+
+.title {
+    font-weight: bold;
+    color: white;
+}
+
+.signInLink {
+    color: white;
+    font-weight: bold;
+}
+
+.signUp > * {
+    width: 100%;
+    display: flex;
+    padding: 5px;
+    justify-content: center;
+}
+
+.signUp img {
+    width: 50%;
+    height: auto;
+}
+
+.form {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 50%;
+    padding: 20px;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    background-color: #9B6A6C;
+    border-radius: 15px;
+    margin-bottom: 10px;
+}
+
+.item {
+    /**background-color: red;**/
+    width: 100%;
+    padding: 5px;
+    margin: 2px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.form-label {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    /**background-color: turquoise;**/
+}
+
+.item > * {
+    width: 100%;
+}
+
+.input{
+    font-size: large;
+}
+
+.error {
+    display: flex;
+    justify-content: center;
+    color: white;
+    font-size: smaller;
+}

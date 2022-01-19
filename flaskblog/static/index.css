@@ -1,0 +1,110 @@
+/*
+Charcoal: #424B54
+Peulter Blue: #93A8AC
+White: #FFFFFF
+Pink: #E2B4BD
+Copper Rose: #9B6A6C
+*/
+
+html, body {
+    padding: 0px;
+    margin: 0px;
+    
+    font-size: 20px;
+    font-family:'Courier New', Courier, monospace;
+}
+
+a, a:hover, a:focus, a:active {
+    text-decoration: none;
+    color: inherit;
+}
+
+.navigation {
+    background-color: #424B54;
+    padding: 20px;
+    color: white;
+}
+
+.footer {
+    background-color: #424B54;
+    padding: 20px;
+    color: white;
+    margin-top: 100px;
+}
+
+.header {
+    margin: 10px;
+}
+
+.flashes {
+    color: red;
+    margin: 10px;
+}
+
+.bucket-list-container {
+    margin: 10px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.list-item {
+    width: 100%;
+    background: linear-gradient(45deg, #9B6A6C, #424B54);
+    border-radius: 15px;
+    margin-bottom: 10px;
+    padding: 10px;
+    font-size: larger;
+}
+
+.post-content {
+    width: 100%;
+    font-size: smaller;
+}
+
+textarea {
+    resize: none;
+}
+
+.new-post {
+    display: none;
+}
+
+.create-new-post-button {
+    margin: 10px;
+    height: 5vh;
+    display: flex;
+    justify-content: center;
+}
+
+.create-new-post-button > *{
+    width: 20%;
+    height: 100%;
+}
+
+.removeItemButton {
+    width: 10vw;
+    min-width: 50px;
+    height: auto;
+}
+
+.new-post {
+    margin: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.new-post > * {
+    margin-bottom: 5px;
+    width: 100%;
+    font-size: 20px;
+    padding: 5px;
+}
+
+#new-post-submit {
+    
+}
+
+textarea {
+    white-space: pre-wrap;
+}
