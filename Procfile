@@ -1,1 +1,1 @@
-web: gunicorn --chdir flaskblog run:app
+web: gunicorn flaskblog:app
