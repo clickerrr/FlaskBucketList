@@ -10,7 +10,7 @@ class User(UserMixin, database.Model):
     password_hash = database.Column(database.BLOB)
 
     def hashPassword(self, password):
-        self.password_hash = generate_password_hash(password=password, method="pbkdf2:sha256", salt_length=16)
+        self.password_hash = bytes(generate_password_hash(password=password, method="pbkdf2:sha256", salt_length=16), 'utf8')
 
     def checkPasswordHash(self, password):
         return check_password_hash(pwhash=self.password_hash.decode(), password=password)
