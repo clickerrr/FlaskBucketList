@@ -2,7 +2,8 @@ from flask import render_template, redirect, url_for, request, flash, jsonify
 from flaskblog import app, database, login
 from flaskblog.forms import RegistrationForm, LoginForm, NewPostForm
 from flaskblog.db import User, Posts
-from flask_login import login_required, logout_user, login_user, current_user, login_fresh
+from flask_login import login_required, logout_user, login_user, current_user
+from werkzeug.security import generate_password_hash
 
 # route for the default index
 @app.route("/home", methods=["GET", "POST"])
@@ -25,12 +26,10 @@ def signUpPage():
     flaskRegForm = RegistrationForm(request.form)
     if request.method == 'POST':
         if flaskRegForm.validate():
-
             user_exists = User.query.filter_by(username=str(flaskRegForm.username.data)).first()
             if user_exists:
                 flash("User already exists")
             else:
-
                 user_exists = User.query.filter_by(email=str(flaskRegForm.email.data)).first()
                 if user_exists:
                     flash("Email already registered")
@@ -54,7 +53,6 @@ def signInPage():
 
     flaskLoginForm = LoginForm(request.form)
     if request.method == 'POST' and flaskLoginForm.validate():
-
         is_user = User.query.filter_by(username=str(flaskLoginForm.username_or_email.data)).first()
         if is_user:
             is_password = is_user.checkPasswordHash(password=str(flaskLoginForm.password.data))
@@ -69,6 +67,7 @@ def signInPage():
             if is_user:
                 is_password = is_user.checkPasswordHash(password=str(flaskLoginForm.password.data))
                 if is_user and is_password:
+                    is_user
                     login_user(user=is_user)
                     flash("Logged In Successfully")
                     return redirect(url_for('index'))

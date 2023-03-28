@@ -7,13 +7,13 @@ class User(UserMixin, database.Model):
     id = database.Column(database.Integer, primary_key=True)
     username = database.Column(database.String(80), unique=True, nullable=False)
     email = database.Column(database.String(120), unique=True, nullable=False)
-    password_hash = database.Column(database.String(128))
+    password_hash = database.Column(database.BLOB)
 
     def hashPassword(self, password):
         self.password_hash = generate_password_hash(password=password, method="pbkdf2:sha256", salt_length=16)
 
     def checkPasswordHash(self, password):
-        return check_password_hash(pwhash=self.password_hash, password=password)
+        return check_password_hash(pwhash=self.password_hash.decode(), password=password)
 
     def __repr__(self):
         return "[" + str(self.username) + ", " + str(self.email) + ", " + str(self.password_hash) + "]"
