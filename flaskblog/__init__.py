@@ -3,10 +3,10 @@ from sqlalchemy import text
 from flask import Flask
 from flask_login import LoginManager
 from datetime import timedelta
-#from dotenv import load_dotenv
+from dotenv import load_dotenv
 import os
 
-#load_dotenv()
+load_dotenv()
 # initializes the object of Flask
 app = Flask(__name__)
 # sets the config for the object
