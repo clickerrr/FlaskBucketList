@@ -10,8 +10,8 @@ import os
 # initializes the object of Flask
 app = Flask(__name__)
 # sets the config for the object
-app.config['SECRET_KEY'] = os.getenv('secret-key')
-app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('db-uri')
+app.config['SECRET_KEY'] = os.environ.get('secret-key')
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('db-uri')
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.config['REMEMBER_COOKIE_DURATION'] = timedelta(days=1)
 
