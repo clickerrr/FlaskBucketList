@@ -34,7 +34,8 @@ def signUpPage():
                 if user_exists:
                     flash("Email already registered")
                 else:
-                    user = User(username=str(flaskRegForm.username.data), email=str(flaskRegForm.email.data),
+                    id = User.query.count() + 1
+                    user = User(id=id,username=str(flaskRegForm.username.data), email=str(flaskRegForm.email.data),
                                 password_hash=str(flaskRegForm.password.data))
                     user.hashPassword(user.password_hash)
 
@@ -105,7 +106,8 @@ def addPost():
         title = request.get_json(force=True)["title"]
         content = request.get_json(force=True)["content"]
         if current_user:
-            new_post_to_commit = Posts(title=str(title), content=str(content), user_rel=current_user)
+            id = Posts.query.count()
+            new_post_to_commit = Posts(id=id,title=str(title), content=str(content), user_rel=current_user)
             database.session.add(new_post_to_commit)
             database.session.commit()
             postId = Posts.query.filter_by(title=str(title), content=str(content)).order_by(Posts.id.desc()).first().id

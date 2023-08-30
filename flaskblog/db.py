@@ -4,6 +4,8 @@ from flask_login import UserMixin
 
 # User class for the databases
 class User(UserMixin, database.Model):
+    __table_args__ = {"schema": "flaskbucketlist"}
+
     id = database.Column(database.Integer, primary_key=True)
     username = database.Column(database.String(80), unique=True, nullable=False)
     email = database.Column(database.String(120), unique=True, nullable=False)
@@ -25,12 +27,13 @@ class User(UserMixin, database.Model):
 # and all() returns a list with all the toStrings
 # Posts class for the database
 class Posts(UserMixin, database.Model):
+    __table_args__ = {"schema": "flaskbucketlist"}
     id = database.Column(database.Integer, primary_key=True)
     title = database.Column(database.String(80), unique=False, nullable=False)
     content = database.Column(database.String(240), unique=False, nullable=False)
 
-    user_id = database.Column(database.Integer, database.ForeignKey('user.id'), nullable=False)
-    user_rel = database.relationship('User', backref=database.backref('user', lazy=True))
+    user_id = database.Column(database.Integer, database.ForeignKey('flaskbucketlist.user.id'), nullable=False)
+    user_rel = database.relationship('User', backref=database.backref('flaskbucketlist.user', lazy=True))
 
     def __repr__(self):
         return "[" + str(self.title) + "]"
