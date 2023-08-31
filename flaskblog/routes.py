@@ -26,21 +26,37 @@ def signUpPage():
     flaskRegForm = RegistrationForm(request.form)
     if request.method == 'POST':
         if flaskRegForm.validate():
-            user_exists = User.query.filter_by(username=str(flaskRegForm.username.data)).first()
+            user_exists = None
+            try:
+                user_exists = User.query.filter_by(username=str(flaskRegForm.username.data)).first()
+            except:
+                flash("Error resolving database request")
+
             if user_exists:
                 flash("User already exists")
             else:
-                user_exists = User.query.filter_by(email=str(flaskRegForm.email.data)).first()
+                user_exists = None
+                try:
+                    user_exists = User.query.filter_by(email=str(flaskRegForm.email.data)).first()
+                except:
+                    flash("Error resolving database request")
+
                 if user_exists:
                     flash("Email already registered")
                 else:
-                    id = User.query.count() + 1
-                    user = User(id=id,username=str(flaskRegForm.username.data), email=str(flaskRegForm.email.data),
-                                password_hash=str(flaskRegForm.password.data))
-                    user.hashPassword(user.password_hash)
+                    user = None
+                    try:
+                        id = User.query.count() + 1
 
-                    database.session.add(user)
-                    database.session.commit()
+                        user = User(id=id,username=str(flaskRegForm.username.data), email=str(flaskRegForm.email.data),
+                                    password_hash=str(flaskRegForm.password.data))
+                        user.hashPassword(user.password_hash)
+
+                        database.session.add(user)
+                        database.session.commit()
+                    except:
+                        flash("Error resolving database request")
+
                     login_user(user, remember=False)
                     return redirect(url_for("index"))
 
@@ -54,9 +70,18 @@ def signInPage():
 
     flaskLoginForm = LoginForm(request.form)
     if request.method == 'POST' and flaskLoginForm.validate():
-        is_user = User.query.filter_by(username=str(flaskLoginForm.username_or_email.data)).first()
+
+        is_user = None
+        try:
+            is_user = User.query.filter_by(username=str(flaskLoginForm.username_or_email.data)).first()
+        except:
+            flash("Error resolving database request")
         if is_user:
-            is_password = is_user.checkPasswordHash(password=str(flaskLoginForm.password.data))
+            is_password = None
+            try:
+                is_password = is_user.checkPasswordHash(password=str(flaskLoginForm.password.data))
+            except:
+                flash("Error resolving database request")
             if is_user and is_password:
                 login_user(user=is_user)
                 flash("Logged in successfully")
@@ -64,11 +89,14 @@ def signInPage():
             else:
                 flash("Incorrect Username or Password")
         else:
-            is_user = User.query.filter_by(email=str(flaskLoginForm.username_or_email.data)).first()
+            is_user = None
+            try:
+                is_user = User.query.filter_by(email=str(flaskLoginForm.username_or_email.data)).first()
+            except:
+                flash("Error resolving database request")
             if is_user:
                 is_password = is_user.checkPasswordHash(password=str(flaskLoginForm.password.data))
                 if is_user and is_password:
-                    is_user
                     login_user(user=is_user)
                     flash("Logged In Successfully")
                     return redirect(url_for('index'))

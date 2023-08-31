@@ -1,0 +1,5 @@
+venv
+flaskblog/.env
+.idea
+flaskblog/__pycache__
+pyenv.cfg
