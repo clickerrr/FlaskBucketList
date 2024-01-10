@@ -14,6 +14,8 @@ def index():
 
     flaskNewPostForm = NewPostForm(request.form)
     if request.method == "POST" and flaskNewPostForm.validate():
+        #postId = Posts.query.count() + 1
+
         new_post = Posts(title=str(flaskNewPostForm.title.data), content=str(flaskNewPostForm.content.data), user_rel=current_user)
         database.session.add(new_post)
         database.session.commit()
@@ -29,7 +31,8 @@ def signUpPage():
             user_exists = None
             try:
                 user_exists = User.query.filter_by(username=str(flaskRegForm.username.data)).first()
-            except:
+            except Exception as ex:
+                print(ex)
                 flash("Error resolving database request")
 
             if user_exists:
@@ -38,7 +41,8 @@ def signUpPage():
                 user_exists = None
                 try:
                     user_exists = User.query.filter_by(email=str(flaskRegForm.email.data)).first()
-                except:
+                except Exception as ex:
+                    print(ex)
                     flash("Error resolving database request")
 
                 if user_exists:
@@ -46,15 +50,16 @@ def signUpPage():
                 else:
                     user = None
                     try:
-                        id = User.query.count() + 1
+                        #id = User.query.count() + 1
 
-                        user = User(id=id,username=str(flaskRegForm.username.data), email=str(flaskRegForm.email.data),
+                        user = User(username=str(flaskRegForm.username.data), email=str(flaskRegForm.email.data),
                                     password_hash=str(flaskRegForm.password.data))
                         user.hashPassword(user.password_hash)
 
                         database.session.add(user)
                         database.session.commit()
-                    except:
+                    except Exception as ex:
+                        print(ex)
                         flash("Error resolving database request")
 
                     login_user(user, remember=False)
@@ -74,13 +79,15 @@ def signInPage():
         is_user = None
         try:
             is_user = User.query.filter_by(username=str(flaskLoginForm.username_or_email.data)).first()
-        except:
+        except Exception as ex:
+            print(ex)
             flash("Error resolving database request")
         if is_user:
             is_password = None
             try:
                 is_password = is_user.checkPasswordHash(password=str(flaskLoginForm.password.data))
-            except:
+            except Exception as ex:
+                print(ex)
                 flash("Error resolving database request")
             if is_user and is_password:
                 login_user(user=is_user)
@@ -92,7 +99,8 @@ def signInPage():
             is_user = None
             try:
                 is_user = User.query.filter_by(email=str(flaskLoginForm.username_or_email.data)).first()
-            except:
+            except Exception as ex:
+                print(ex)
                 flash("Error resolving database request")
             if is_user:
                 is_password = is_user.checkPasswordHash(password=str(flaskLoginForm.password.data))
@@ -134,8 +142,8 @@ def addPost():
         title = request.get_json(force=True)["title"]
         content = request.get_json(force=True)["content"]
         if current_user:
-            id = Posts.query.count()
-            new_post_to_commit = Posts(id=id,title=str(title), content=str(content), user_rel=current_user)
+            #id = Posts.query.count()
+            new_post_to_commit = Posts(title=str(title), content=str(content), user_rel=current_user)
             database.session.add(new_post_to_commit)
             database.session.commit()
             postId = Posts.query.filter_by(title=str(title), content=str(content)).order_by(Posts.id.desc()).first().id
