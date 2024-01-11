@@ -4,61 +4,119 @@
 <head>
     <title>Python Flask Bucket List App</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" type= "text/css" href= "{{ url_for('static',filename='index.css') }}">
+    <!--<link rel="stylesheet" type= "text/css" href= "{{ url_for('static',filename='index.css') }}">-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
 </head>
 
 <body>
 
-        <nav class="navigation">
-            <a href="{{ url_for('logout') }}">Logout</a>
-        </nav>
-
-
-        <div class="header">
-            <h1>BUCKET LIST APP</h1>
-            {% if current_user.is_authenticated %}
-                <span> Hello, {{ current_user.username }}!</span>
-            {% endif %}
-        </div>
-
-        {% with messages = get_flashed_messages() %}
-          {% if messages %}
-            <div class="flashes">
-            {% for message in messages %}
-                <span class="flashed_message">{{ message }}</span>
-            {% endfor %}
-            </div>
-          {% endif %}
-        {% endwith %}
-
-        <div class="bucket-list-container">
-
-            {% if posts[0] %}
-                {% for post in posts %}
-                    <div class="list-item" id="item{{ post.id }}">
-                        <button id="{{ post.id }}" class="removeItemButton">Mark As Done</button>
-                        <h4 class="post-title" id="title{{ post.id }}">{{ post.title }}</h4>
-                        <p class="post-content" id="content{{ post.id }}">{{ post.content }}</p>
+        <div class="container-fluid p-3 bg-dark text-white bg-gradient">
+            <div class="container-fluid">
+                <div class="d-flex justify-content-end">
+                    <div>
+                        <a class="mb-0 navbar-brand h1" href="{{ url_for('logout') }}">Logout</a>
                     </div>
-                {% endfor %}
-            {% else %}
-                <div class="no-items-yet">
-                    <h4>No Items Yet</h4>
                 </div>
-            {% endif %}
+          </div>
+        </div>
+
+        <div class="container mt-3">
+
+            <div class="mb-3 row justify-content-center">
+                <div class="text-center col-lg-4">
+                    <div class="mb-1 border-bottom rounded shadow-sm">
+                        <h1>BUCKET LIST APP</h1>
+                    </div>
+                    {% if current_user.is_authenticated %}
+                        <h6 class="text-success"> Hello, {{ current_user.username }}!</h6>
+                    {% endif %}
+                </div>
+
+            </div>
 
         </div>
-        <div class="create-new-post-button">
-            <button id="newPostAcceptButton">Add To Your Bucket List!</button>
+
+
+        <div class="container mb-4">
+
+            {% with messages = get_flashed_messages() %}
+              {% if messages %}
+                <div class="row">
+                    {% for message in messages %}
+                        <span class="text-success">{{ message }}</span>
+                    {% endfor %}
+                </div>
+              {% endif %}
+            {% endwith %}
+
+        </div>
+
+
+        <div class="row justify-content-center me-5 ms-5">
+                <div id="item-list" class="col-lg-10">
+                    {% if posts[0] %}
+
+                                {% for post in posts %}
+                                    <div id="item{{post.id}}" class="row mb-4">
+
+                                        <div class="p-2 text-center col-lg-2">
+                                            <h4 class="post-title" id="title{{ post.id }}">{{ post.title }}</h4>
+                                            <button id="{{ post.id }}" class="removeItemButton btn btn-success">Mark As Done</button>
+                                        </div>
+
+                                        <div class="col-lg-6 m-1 p-3 " >
+                                            <p class="post-content" id="content{{ post.id }}">{{ post.content }}</p>
+                                        </div>
+
+
+                                        <hr/>
+                                    </div>
+
+                                {% endfor %}
+
+                    {% else %}
+                        <div id="no-items-yet-container" class="container mb-3">
+                            <div>
+                                <h4>No Items Yet</h4>
+                            </div>
+                        </div>
+
+                    {% endif %}
+
+                </div>
+        </div>
+
+        <div id="new-post-button-container" class="container mb-2">
+            <div class="create-new-post-button">
+                <button class="btn btn-primary" id="new-post-accept-button">Add To Your Bucket List!</button>
+            </div>
         </div>
 
         <!--<form class="new-post" method="POST">-->
-            <div class="new-post" style="display: none">
-                <input id="new-post-title" placeholder="Enter Your Title">
-                <textarea id="new-post-content" placeholder="Enter your content" rows=4 cols=50></textarea>
-                <button id="new-post-submit" type="submit">Create New Post</button>
-                <span id="titleError">A title is required</span>
+        <div class="d-none container mb-2" id="new-post-container">
+            <h4>Add An Item</h4>
+            <div class="row mb-2">
+
+                <div class="col-lg-6">
+                    <input class="form-control" id="new-post-title" placeholder="Enter Your Title">
+                </div>
+
+
             </div>
+            <div class="row mb-2">
+
+                <div class="col-lg-6">
+                    <textarea class="form-control" id="new-post-content" placeholder="Enter your content" rows=4 cols=50></textarea>
+                </div>
+            </div>
+            <div class="row mb-1">
+                <span class="d-none text-danger" id="titleError">A title is required</span>
+            </div>
+            <button class="btn btn-primary " id="new-post-submit" type="submit">Create New Post</button>
+
+        </div>
+
             <!--{{ newPostForm.title(placeholder="Enter Your Title") }} -->
             <!--{{ newPostForm.content(placeholder="Enter Your Content",rows="4",cols="50") }} -->
             <!--{{ newPostForm.submit }} -->
@@ -71,6 +129,9 @@
     <script type="text/javascript" src="{{ url_for('static', filename='createNewPost.js') }}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='removePost.js') }}"></script>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
 
 </body>
 

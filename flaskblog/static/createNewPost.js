@@ -2,10 +2,10 @@ window.onload = function()
 {
 
 
-    $("#newPostAcceptButton").click(function() {
+    $("#new-post-accept-button").click(function() {
 
-        $(".new-post").css('display', 'flex');
-        $(".create-new-post-button").css('display','none');
+        $("#new-post-container").removeClass("d-none");
+        $("#new-post-button-container").addClass("d-none");
 
     })
 
@@ -14,8 +14,8 @@ window.onload = function()
 
         if($("#new-post-title").val())
         {            
-            $(".new-post").css('display', 'none');
-            $(".create-new-post-button").css('display','flex');
+            $("#new-post-container").addClass("d-none");
+            $("#new-post-button-container").removeClass("d-none");
         }
     })
 
