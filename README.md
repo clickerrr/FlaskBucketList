@@ -1,5 +1,8 @@
 # Flask Bucket List
 LIVE DEPLOYMENT: ~~https://flask-bucketlist-webapp.onrender.com/~~
+
+**Currently Render is having issues deploying the application's environment so as of 9-16-24 it is not live**
+
 **The site may require a cold start if not accessed recently, so it may take a second to load.**
 
 This bucket list app is meant to demonstrate the ability to do simple user login and verification alongside a place for maintaining a list of things to do. It features basic functionality such as adding and removing items from a to do list specific to one user.
